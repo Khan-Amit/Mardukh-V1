@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="terminal_gold">#FFD700</color>
+    <color name="terminal_dark_bg">#111111</color>
+    <color name="alert_red">#FF3333</color>
+    <color name="engine_green">#00FF66</color>
+</resources>
