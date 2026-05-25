@@ -1,0 +1,9 @@
+<resources>
+    <!-- Custom theme configuration optimizing for bare-metal visual styling -->
+    <style name="Theme.MardukhCore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/terminal_gold</item>
+        <item name="colorSecondary">@color/engine_green</item>
+        <item name="android:windowBackground">@color/terminal_dark_bg</item>
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+</resources>
