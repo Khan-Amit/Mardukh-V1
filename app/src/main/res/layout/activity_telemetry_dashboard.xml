@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://android.com"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/telemetry_layout"> <!-- Linked to your 4th PNG Asset -->
+
+    <!-- Top Instrumentation Banner Overlay -->
+    <LinearLayout
+        android:id="@+id/metricsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6000000"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SA-AKHRAN-V1 LIVE TELEMETRY"
+            android:textColor="#FFD700"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"/>
+
+        <TextView
+            android:id="@+id/tvBinaryCounters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCEPTED: 0 | REJECTED: 0 (0.0%)"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <!-- Custom Native Hardware Rendering Surface (Renders Dial & Square Box Metrics) -->
+    <com.mardukh.system.TelemetryCustomView
+        android:id="@+id/telemetryRenderSurface"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_below="@id/metricsHeader"
+        android:layout_marginTop="16dp" />
+
+    <!-- Bounding Shell Container for the New Rolling Blocked IP List Component -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/telemetryRenderSurface"
+        android:layout_margin="16dp"
+        android:background="#F2080808"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SOCKET MOUTH BLOCKLIST LOG (REAL DATA)"
+            android:textColor="#FF3333"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Custom View Handling the Automatic Vertical Roll Frame Loop -->
+        <com.mardukh.system.RollingLogCustomView
+            android:id="@+id/rollingLogSurface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</RelativeLayout>
