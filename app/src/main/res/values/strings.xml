@@ -1,0 +1,8 @@
+<resources>
+    
+    <string name="app_name">MARDUKH SYSTEM</string>
+    <string name="title_activity_landing">Core Installation Ingress</string>
+    <string name="title_activity_lock">Security Core Access</string>
+    <string name="title_activity_control">Engine Control Matrix</string>
+    <string name="title_activity_telemetry">Live Structural Telemetry</string>
+</resources>
