@@ -1,0 +1,15 @@
+{
+  "voip_ingress_kbps": 684,
+  "filtration_drop_rate": 2,
+  "financial_gain_usd": 48921.40,
+  "hostile_ips": [
+    {"ip": "185.220.101.5", "attempts": 412, "threat": "Critical Ingress Breach"},
+    {"ip": "45.146.164.12", "attempts": 89, "threat": "Filtration Overload Sync"},
+    {"ip": "103.208.220.3", "attempts": 1105, "threat": "VoIP Socket Flood"}
+  ],
+  "active_users": [
+    {"id": "MDK-USR-0912", "level": "Operator Tier 1", "status": "Active"},
+    {"id": "MDK-USR-4410", "level": "Engineering Master", "status": "Active"},
+    {"id": "MDK-USR-8891", "level": "Sovereign Root Core", "status": "Active"}
+  ]
+}
