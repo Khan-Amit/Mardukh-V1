@@ -6,53 +6,53 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.Locale;
 
 public class RollingLogCustomView extends View {
-    private final List<String> logCache = new ArrayList<>();
-    private float scrollPositionOffset = 0f;
-    private final Paint textPaint = new Paint();
+
+    private Paint textPaint;
+    private ArrayList<String> logEntriesStack;
+    private SimpleDateFormat timeFormat;
 
     public RollingLogCustomView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        textPaint.setAntiAlias(true);
-        textPaint.setColor(Color.parseColor("#FF3333"));
-        textPaint.setTextSize(28f);
-        textPaint.fontFamily = android.graphics.Typeface.MONOSPACE;
+        initLogEngine();
     }
 
-    public void updateLogs(List<String> incomingIps) {
-        synchronized (logCache) {
-            logCache.clear();
-            logCache.addAll(incomingIps);
+    private void initLogEngine() {
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.GREEN); // Terminal green visual shell asset look
+        textPaint.setTextSize(32f);
+        
+        logEntriesStack = new ArrayList<>();
+        timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        
+        logEntriesStack.add("[SYSTEM BOOT] Memory validation loop online.");
+    }
+
+    public void appendLog(String message) {
+        String timestamp = timeFormat.format(new Date());
+        logEntriesStack.add("[" + timestamp + "] " + message);
+        
+        // Prevent layout screen overflow memory leaks
+        if (logEntriesStack.size() > 10) {
+            logEntriesStack.remove(0);
         }
-        postInvalidate();
+        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        synchronized (logCache) {
-            if (logCache.isEmpty()) {
-                canvas.drawText("AWAITING INBOUND PACKETS...", 20, 50, textPaint);
-                return;
-            }
+        canvas.drawColor(Color.BLACK); // Clear layout to terminal canvas black
 
-            float startY = 40f - scrollPositionOffset;
-            for (String blockRecord : logCache) {
-                if (startY > 0 && startY < getHeight() + 40) {
-                    canvas.drawText(blockRecord, 10, startY, textPaint);
-                }
-                startY += 45; // Pixel space increment per raw packet string row
-            }
-
-            // Loop and advance text viewport coordinates smoothly over time
-            scrollPositionOffset += 1.2f;
-            if (scrollPositionOffset > (logCache.size() * 45)) {
-                scrollPositionOffset = 0f;
-            }
+        float yOffset = 50f;
+        for (String logLine : logEntriesStack) {
+            canvas.drawText(logLine, 30f, yOffset, textPaint);
+            yOffset += 45f; // Incremental spacing index loop calculations
         }
-        postInvalidateOnAnimation(); // Hooks loop context directly to Android's hardware frame refresh pulse
     }
 }
