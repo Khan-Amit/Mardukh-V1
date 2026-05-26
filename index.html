@@ -33,8 +33,8 @@
         .btn-blue { background: var(--accent-blue); }
         .dial-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         
-        /* High-visibility fallback canvas configurations */
-        canvas { background: #000000; border-radius: 50%; margin-bottom: 8px; border: 2px solid #30363d; display: inline-block; }
+        /* Rigid forced visibility layouts for mobile WebViews */
+        canvas { background: #000000 !important; border-radius: 50%; margin-bottom: 8px; border: 2px solid #30363d; display: inline-block !important; width: 120px; height: 120px; }
         
         .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 12px; height: 180px; overflow-y: auto; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; text-align: left; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
@@ -103,13 +103,13 @@
         <div class="grid-2">
             <div class="card dial-container">
                 <h2>VoIP Ingress Stream</h2>
-                <canvas id="dial-voip" width="140" height="140"></canvas>
-                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.1rem;">Loading...</span>
+                <canvas id="dial-voip" width="120" height="120"></canvas>
+                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.1rem;">0 kbps</span>
             </div>
             <div class="card dial-container">
                 <h2>Filtration Loop Drop Rate</h2>
-                <canvas id="dial-filt" width="140" height="140"></canvas>
-                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.1rem;">Loading...</span>
+                <canvas id="dial-filt" width="120" height="120"></canvas>
+                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.1rem;">0 %</span>
             </div>
         </div>
         <div class="card">
