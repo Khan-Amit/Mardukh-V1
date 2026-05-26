@@ -4,93 +4,124 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TelemetryDashboardActivity extends AppCompatActivity {
 
-    // Configurable master administrator login pin variable loop parameter
     private String currentAdminPin = "777"; 
     private boolean isAdministrator = false;
 
     private EditText logicInput;
     private Button authenticateBtn;
     private TextView loginErrorText;
+    
+    // Layout Pages 
+    private LinearLayout layoutPublicReport;
+    private LinearLayout layoutAdminDashboard;
 
-    // References to your custom layout shell drawing components visible in the repo image
-    private TelemetryCustomView voipDialMeter;
-    private TelemetryCustomView filtrationDialMeter;
-    private RollingLogCustomView rollingBlockedIpLogs;
+    // Custom Canvas Views from your repository
+    private TelemetryCustomView dialVoip;
+    private TelemetryCustomView dialFiltration;
+    private TelemetryCustomView dialEnergyStd;
+    private TelemetryCustomView dialEnergyGreen;
+    private RollingLogCustomView rollingLogsView;
+
+    private Timer pipelineTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Ensure this points to your specific XML file configuration setup
         setContentView(R.layout.activity_telemetry_dashboard);
 
-        // Initialize Native Core Interface Elements
+        // Bind Authorization views
         logicInput = findViewById(R.id.logic_input);
         authenticateBtn = findViewById(R.id.btn_authenticate);
         loginErrorText = findViewById(R.id.login_error_msg);
 
-        // Core native telemetry canvas assets mapping layers
-        voipDialMeter = findViewById(findViewById(R.id.dial_voip_view).getId());
-        filtrationDialMeter = findViewById(findViewById(R.id.dial_filtration_view).getId());
-        rollingBlockedIpLogs = findViewById(findViewById(R.id.rolling_logs_view).getId());
+        // Bind App Pages
+        layoutPublicReport = findViewById(R.id.layout_public_report);
+        layoutAdminDashboard = findViewById(R.id.layout_admin_dashboard);
 
-        // Dynamic click gate processing validation routine
+        // Bind Custom Drawing Components
+        dialVoip = findViewById(R.id.dial_voip);
+        dialFiltration = findViewById(R.id.dial_filtration);
+        dialEnergyStd = findViewById(R.id.dial_energy_std);
+        dialEnergyGreen = findViewById(R.id.dial_energy_green);
+        rollingLogsView = findViewById(R.id.rolling_logs_view);
+
         authenticateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyNativeLogicSequence();
+                verifyNativeLogic();
             }
         });
+
+        startTelemetryPollingLoop();
     }
 
-    /**
-     * Secures and routes interface state based on configuration pin input parameters
-     */
-    private void verifyNativeLogicSequence() {
-        String enteredValue = logicInput.getText().toString().trim();
+    private void verifyNativeLogic() {
+        String input = logicInput.getText().toString().trim();
+        if (input.isEmpty()) return;
 
-        if (enteredValue.isEmpty()) {
-            return;
-        }
-
-        // Native validation match check routing
-        if (enteredValue.equals(currentAdminPin)) {
+        if (input.equals(currentAdminPin)) {
             isAdministrator = true;
             loginErrorText.setVisibility(View.GONE);
             
-            // ROUTE DIRECTLY TO ADMIN LAYER VIEWPORTS
-            loadAdministrativeDashboardLayer();
+            // UNLOCK PAGE 4 AND DIALS
+            layoutPublicReport.setVisibility(View.GONE);
+            layoutAdminDashboard.setVisibility(View.VISIBLE);
         } else {
             isAdministrator = false;
             loginErrorText.setVisibility(View.GONE);
             
-            // ROUTE DIRECTLY TO BASELINE PUBLIC REPORTS
-            loadGeneralReportLayer();
+            // DROP TO PUBLIC GENERAL TIER (PAGE 2)
+            layoutAdminDashboard.setVisibility(View.GONE);
+            layoutPublicReport.setVisibility(View.VISIBLE);
         }
-        
-        // Clean out security entry array fields immediately after check execution
         logicInput.setText("");
     }
 
-    private void loadAdministrativeDashboardLayer() {
-        // CODE BLOCK: Unhides Page 4 Dials & Activates Report Document CSV Buttons
-        // Example: findViewById(R.id.admin_panel_layout).setVisibility(View.VISIBLE);
+    private void startTelemetryPollingLoop() {
+        pipelineTimer = new Timer();
+        pipelineTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Generate dynamic values for the dials
+                        float mockVoip = (float) (400 + Math.random() * 450);
+                        float mockFilt = (float) (Math.random() * 5);
+
+                        // Push updates straight into the custom views
+                        dialVoip.updateValue(mockVoip, 1000f);
+                        dialFiltration.updateValue(mockFilt, 10f);
+
+                        // Push data to administrative dials if unlocked
+                        if (isAdministrator) {
+                            dialEnergyStd.updateValue(412f, 500f);
+                            dialEnergyGreen.updateValue(89f, 500f);
+                            rollingLogsView.appendLog("FILTRATION_DROP: Mitigated request vector.");
+                        }
+                    }
+                });
+            }
+        }, 0, 1500); // 1500ms pipeline loop execution
     }
 
-    private void loadGeneralReportLayer() {
-        // CODE BLOCK: Restricts options and locks view strictly to Public Page 2 elements
-    }
-
-    /**
-     * Public method template layer allowing you to re-assign authorization pins at runtime
-     */
-    public void updateAdminPinSequence(String newPin) {
-        if (newPin != null && !newPin.trim().isEmpty()) {
+    public void changeAdminPinSequence(String newPin) {
+        if(newPin != null && !newPin.trim().isEmpty()) {
             this.currentAdminPin = newPin.trim();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pipelineTimer != null) pipelineTimer.cancel();
     }
 }
