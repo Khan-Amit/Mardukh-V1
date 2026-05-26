@@ -6,14 +6,14 @@
     <title>MARDUKH SYSTEM // SA-AKHRAN-V1-</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { height: 100%; font-family: monospace; background-color: #111; color: #fff; overflow-x: hidden; }
+        body, html { height: 100%; font-family: monospace; background-color: #111; color: #fff; overflow: hidden; }
         
-        /* Fixed absolute path forcing the browser straight into the repository asset */
+        /* Fixed relative image path targeting the root directory folder layout */
         .viewport-container {
             position: relative;
             width: 100%;
             height: 100vh;
-            background: url('/Mardukh-V1/landing_layout.png') no-repeat center center;
+            background: url('landing_layout.png') no-repeat center center;
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -62,9 +62,9 @@
             <div class="subtitle">Core Implementation Deployment: SA-AKHRAN-V1-</div>
         </header>
 
-        <!-- Fixed Absolute Repository Link targeting the installer bundle directly -->
+        <!-- Fixed relative file link targeting the root directory apk package directly -->
         <div class="action-tray">
-            <a href="/Mardukh-V1/mardukh-core.apk" class="download-btn">
+            <a href="mardukh-core.apk" class="download-btn">
                 DOWNLOAD STANDALONE APP (.APK)
             </a>
         </div>
