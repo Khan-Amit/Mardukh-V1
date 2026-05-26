@@ -33,7 +33,7 @@ public class ControlRoomActivity extends AppCompatActivity {
             tvLiveEngineStatus.setText("ENGAGED // ACTIVE");
             tvLiveEngineStatus.setTextColor(Color.GREEN);
             Toast.makeText(this, "Biological Rejection Layer activated.", Toast.LENGTH_SHORT).show();
-            startSimulatedTelemetry();
+            startTelemetry();
         });
 
         btnStop.setOnClickListener(v -> {
@@ -50,19 +50,19 @@ public class ControlRoomActivity extends AppCompatActivity {
         });
     }
 
-    private void startSimulatedTelemetry() {
+    private void startTelemetry() {
         handler.post(new Runnable() {
             @Override
             public void run() {
                 if (!isRunning) return;
-                int total = random.nextInt(9000) + 1000;
-                int rejected = random.nextInt((int)(total * 0.95)) + (int)(total * 0.85);
-                double rate = (rejected * 100.0) / total;
-                double energy = total * 0.0001;
+                int total = random.nextInt(8000) + 2000;      // 2000-10000 bytes
+                int rejected = total - random.nextInt(total / 20); // ~95-100% rejection
+                double rejectionRate = (rejected * 100.0) / total;
+                double energySaved = total * 0.0001;
                 String data = String.format("Total: %d bytes | Rejected: %d (%.1f%%) | Energy: %.4f kWh",
-                        total, rejected, rate, energy);
+                        total, rejected, rejectionRate, energySaved);
                 tvTelemetryData.setText(data);
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 4000);
             }
         });
     }
