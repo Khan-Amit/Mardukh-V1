@@ -32,18 +32,20 @@
         .btn-green { background: var(--accent-green); }
         .btn-blue { background: var(--accent-blue); }
         .dial-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        canvas { background: #000; border-radius: 50%; margin-bottom: 8px; }
-        .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 12px; height: 180px; overflow-y: auto; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
+        
+        /* Fixed Canvas Visibility Rules */
+        canvas { background: #000000; border-radius: 50%; margin-bottom: 8px; border: 1px solid var(--border); display: block; }
+        
+        .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 12px; height: 180px; overflow-y: auto; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; text-align: left; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
         th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
         th { color: var(--text-muted); font-weight: 600; }
         
-        /* 🖼️ FIXED: Bulletproof Fallback Shells for Images */
-        .image-container-shell { width: 100%; height: 120px; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; border: 2px dashed var(--border); text-transform: uppercase; background-size: cover; background-position: center; }
-        .bg-landing { background-image: url('landing_layout.png'); background-color: rgba(88, 166, 255, 0.1); color: var(--accent-blue); }
-        .bg-lockscreen { background-image: url('lockscreen_layout.png'); background-color: rgba(35, 134, 54, 0.1); color: var(--accent-green); }
-        .bg-control { background-image: url('control_layout.png'); background-color: rgba(218, 54, 51, 0.1); color: var(--accent-red); }
-        .bg-telemetry { background-image: url('telemetry_layout.png'); background-color: rgba(255, 255, 255, 0.05); color: #fff; }
+        .image-container-shell { width: 100%; height: 120px; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; border: 1px solid var(--border); text-transform: uppercase; background-size: cover; background-position: center; }
+        .bg-landing { background-image: url('landing_layout.png'); background-color: rgba(88, 166, 255, 0.05); color: var(--accent-blue); }
+        .bg-lockscreen { background-image: url('lockscreen_layout.png'); background-color: rgba(35, 134, 54, 0.05); color: var(--accent-green); }
+        .bg-control { background-image: url('control_layout.png'); background-color: rgba(218, 54, 51, 0.05); color: var(--accent-red); }
+        .bg-telemetry { background-image: url('telemetry_layout.png'); background-color: rgba(255, 255, 255, 0.02); color: #fff; }
     </style>
 </head>
 <body>
@@ -65,7 +67,7 @@
     <div id="page-1" class="page">
         <div class="card" style="max-width: 400px; margin: 40px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
-            <div class="image-container-shell bg-lockscreen">lockscreen_layout.png</div>
+            <div class="image-container-shell bg-lockscreen"></div>
             <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 15px;">Sovereign Override Sequence: Active and Unlocked.</p>
             <button class="btn-action btn-green" onclick="switchPage(4)">Open Master Controls</button>
         </div>
@@ -75,7 +77,7 @@
     <div id="page-2" class="page">
         <div class="card">
             <h2>Baseline Operational Metrics (General Public View)</h2>
-            <div class="image-container-shell bg-landing">landing_layout.png</div>
+            <div class="image-container-shell bg-landing"></div>
             <div class="grid-3">
                 <div class="card" style="background: rgba(255,255,255,0.01); margin-bottom: 0;">
                     <small style="color: var(--text-muted)">Global Ingress Status</small>
@@ -96,18 +98,18 @@
     <!-- PAGE 3: TELEMETRY VIEWPORT CANVAS METER SCREEN -->
     <div id="page-3" class="page">
         <div class="card" style="padding: 0; margin-bottom: 15px;">
-            <div class="image-container-shell bg-telemetry" style="margin: 0;">telemetry_layout.png</div>
+            <div class="image-container-shell bg-telemetry" style="margin: 0;"></div>
         </div>
         <div class="grid-2">
             <div class="card dial-container">
                 <h2>VoIP Ingress Stream</h2>
                 <canvas id="dial-voip" width="140" height="140"></canvas>
-                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.1rem;">580 kbps</span>
+                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.1rem;">0 kbps</span>
             </div>
             <div class="card dial-container">
                 <h2>Filtration Loop Drop Rate</h2>
                 <canvas id="dial-filt" width="140" height="140"></canvas>
-                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.1rem;">1 %</span>
+                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.1rem;">0 %</span>
             </div>
         </div>
         <div class="card">
@@ -116,31 +118,31 @@
         </div>
     </div>
 
-    <!-- PAGE 4: ADMINISTRATIVE DASHBOARD PAGE (Default Active) -->
+    <!-- PAGE 4: ADMINISTRATIVE DASHBOARD PAGE -->
     <div id="page-4" class="page active-page">
         <div class="card" style="padding: 0; margin-bottom: 15px;">
-            <div class="image-container-shell bg-control" style="margin: 0;">control_layout.png</div>
+            <div class="image-container-shell bg-control" style="margin: 0;"></div>
         </div>
         <div class="grid-2">
             <div class="card">
                 <h2>a. Energy Use Comparison Data</h2>
                 <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
                     <div class="dial-container" style="margin: 5px;">
-                        <canvas id="dial-energy-std" width="100" height="100"></canvas>
+                        <canvas id="dial-energy-std" width="110" height="110"></canvas>
                         <small style="color: var(--text-muted)">Conventional Bank</small>
-                        <strong style="color: var(--accent-red); font-size: 0.9rem;">412 kW/h</strong>
+                        <strong style="color: var(--accent-red); font-size: 0.9rem;" id="energy-std-val">0 kW/h</strong>
                     </div>
                     <div class="dial-container" style="margin: 5px;">
-                        <canvas id="dial-energy-green" width="100" height="100"></canvas>
+                        <canvas id="dial-energy-green" width="110" height="110"></canvas>
                         <small style="color: var(--text-muted)">Mardukh Green</small>
-                        <strong style="color: var(--accent-green); font-size: 0.9rem;">89 kW/h</strong>
+                        <strong style="color: var(--accent-green); font-size: 0.9rem;" id="energy-green-val">0 kW/h</strong>
                     </div>
                 </div>
             </div>
             <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <h2>b. Cumulative Financial Gain Matrix</h2>
-                    <h3 style="font-size: 2rem; color: var(--accent-green); margin-top: 5px;">$48,921.40 <span style="font-size: 0.9rem; color: var(--text-muted)">USD</span></h3>
+                    <h3 id="admin-financial-val" style="font-size: 2rem; color: var(--accent-green); margin-top: 5px;">$0.00 <span style="font-size: 0.9rem; color: var(--text-muted)">USD</span></h3>
                 </div>
                 <div style="margin-top: 15px;">
                     <button class="btn-action btn-blue" onclick="downloadAdministrativeReport()">e. Download Master Administrative Report (.CSV)</button>
