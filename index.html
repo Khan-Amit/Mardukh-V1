@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH V1 - Sovereign System Interface</title>
+    <title>MARDUKH V1 - Secured System Interface</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -61,7 +61,6 @@
             <h1>MARDUKH V1</h1>
             <p style="font-size: 0.8rem; color: var(--text-muted)">Owner: Seliim Ahmed | Proprietary Source Framework</p>
         </div>
-        <!-- FIXED: Clean ID mapping tags to protect index calculation structures -->
         <nav id="nav-bar" style="display: none;">
             <button id="nav-btn-2" class="nav-btn" onclick="switchPage(2)">General Report</button>
             <button id="nav-btn-3" class="nav-btn" onclick="switchPage(3)">Telemetry</button>
@@ -70,7 +69,7 @@
         </nav>
     </header>
 
-    <!-- PAGE 1: LANDING & LOGIC NUMBER -->
+    <!-- PAGE 1: LANDING & HIDDEN LOGIC NUMBER MATRIX -->
     <div id="page-1" class="page active-page">
         <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
@@ -167,3 +166,5 @@
                 <h2>d. Flagged Hostile IP Registry Network</h2>
                 <div style="max-height: 250px; overflow-y: auto;">
                     <table>
+                        <thead><tr><th>Target Hostile IP Address</th><th>Attack Logs Count</th><th>Action Description</th></tr></thead>
+                        <tbody id="ip-table-body"></tbody>
