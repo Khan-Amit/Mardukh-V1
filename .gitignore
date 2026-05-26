@@ -1,17 +1,10 @@
-# Architecture Object Binaries
-*.o
-*.out
-*.app
-*.bin
-
-# Compiled Android Bundles
-*.apk
-*.aar
-*.jar
-.gradle/
-build/
-local.properties
-
-# Operating System Metadata
+# OS garbage
 .DS_Store
 Thumbs.db
+
+# Editor temp files
+*.swp
+*~
+
+# Logs (optional)
+*.log
