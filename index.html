@@ -26,7 +26,6 @@
         .nav-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
         .page { display: none; width: 100%; max-width: 1200px; animation: fadeIn 0.3s ease-in-out; }
-        .page.active-page { display: block; }
 
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; }
         h2 { margin-bottom: 15px; font-size: 1.2rem; color: #fff; }
@@ -70,7 +69,7 @@
     </header>
 
     <!-- PAGE 1: LANDING & LOGIN -->
-    <div id="page-1" class="page active-page">
+    <div id="page-1" class="page" style="display: block;">
         <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Enter logic configuration number to unlock core layers.</p>
@@ -167,3 +166,5 @@
                 <div style="max-height: 250px; overflow-y: auto;">
                     <table>
                         <thead><tr><th>Target Hostile IP Address</th><th>Attack Logs Count</th><th>Action Description</th></tr></thead>
+                        <tbody id="ip-table-body"></tbody>
+                    </table>
