@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH V1 - Core Interface</title>
+    <title>MARDUKH V1 - Sovereign System Interface</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -59,7 +59,7 @@
     <header>
         <div>
             <h1>MARDUKH V1</h1>
-            <p style="font-size: 0.8rem; color: var(--text-muted)">Sovereign Proprietary Source Framework</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Owner: Seliim Ahmed | Proprietary Source Framework</p>
         </div>
         <nav id="nav-bar" style="display: none;">
             <button class="nav-btn" onclick="switchPage(2)">General Report</button>
@@ -69,33 +69,33 @@
         </nav>
     </header>
 
-    <!-- PAGE 1: LANDING & LOGIC NUMBER -->
+    <!-- PAGE 1: LANDING & LOGIC NUMBER Gate -->
     <div id="page-1" class="page active-page">
         <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Enter logic configuration number to unlock baseline or administrator layers.</p>
-            <input type="password" id="logic-input" placeholder="Enter Logic Number" autocomplete="off">
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Enter logic configuration number to unlock core layers.</p>
+            <input type="password" id="logic-input" placeholder="Enter Logic PIN Number" autocomplete="off">
             <button class="btn-action btn-green" onclick="verifyLogicNumber()">Authenticate System</button>
             <p id="login-error" style="color: var(--accent-red); font-size: 0.85rem; margin-top: 10px; display: none;">Invalid Logic Key Sequence</p>
         </div>
     </div>
 
-    <!-- PAGE 2: INITIAL GENERAL REPORT -->
+    <!-- PAGE 2: INITIAL REPORT FOR GENERAL PEOPLE -->
     <div id="page-2" class="page">
         <div class="card">
-            <h2>Baseline Operational Metrics (General Public Data)</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">Public nodes and architectural integrity data layer.</p>
+            <h2>Baseline Operational Metrics (General Public View)</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Standard public node integrity matrix.</p>
             <div class="grid-3">
                 <div class="card" style="background: rgba(255,255,255,0.02)">
                     <small style="color: var(--text-muted)">Global Ingress Status</small>
                     <h3 style="font-size: 1.8rem; color: var(--accent-green); margin-top: 5px;">ONLINE</h3>
                 </div>
                 <div class="card" style="background: rgba(255,255,255,0.02)">
-                    <small style="color: var(--text-muted)">Active Public Nodes</small>
-                    <h3 style="font-size: 1.8rem; color: var(--accent-blue); margin-top: 5px;">142 / 142</h3>
+                    <small style="color: var(--text-muted)">Active Core Nodes</small>
+                    <h3 style="font-size: 1.8rem; color: var(--accent-blue); margin-top: 5px;">142 Active</h3>
                 </div>
                 <div class="card" style="background: rgba(255,255,255,0.02)">
-                    <small style="color: var(--text-muted)">Filtration System Integrity</small>
+                    <small style="color: var(--text-muted)">Filtration Level Integrity</small>
                     <h3 style="font-size: 1.8rem; color: #fff; margin-top: 5px;">99.98%</h3>
                 </div>
             </div>
@@ -106,7 +106,7 @@
     <div id="page-3" class="page">
         <div class="grid-2">
             <div class="card dial-container">
-                <h2>VoIP Ingress Telemetry</h2>
+                <h2>VoIP Ingress Stream</h2>
                 <canvas id="dial-voip" width="160" height="160"></canvas>
                 <span id="dial-voip-val" style="font-weight: bold; font-size: 1.2rem;">0kbps</span>
             </div>
@@ -117,22 +117,22 @@
             </div>
         </div>
         <div class="card">
-            <h2>Rolling Blocked IP Socket Logs (1500ms Stream)</h2>
-            <div id="log-stream" class="log-box">Initializing pipeline tracking...</div>
+            <h2>Rolling Blocked IP Socket Logs (1500ms Pipeline Loop)</h2>
+            <div id="log-stream" class="log-box">Awaiting active loop data stream link...</div>
         </div>
     </div>
 
-    <!-- PAGE 4: ADMIN HTML PAGE (DIALS, REPORTS, SETTINGS) -->
+    <!-- PAGE 4: NORMAL HTML PAGE WITH DIALS AND ADMINISTRATIVE REPORT -->
     <div id="page-4" class="page">
-        <!-- Energy and Financial Top Cards -->
+        <!-- Energy Consumption comparison layout -->
         <div class="grid-2">
             <div class="card">
-                <h2>a. Energy Use Comparison</h2>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Comparative consumption metrics against standard green thresholds.</p>
+                <h2>a. Energy Use Comparison Data</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Consumption vs. Standard Data Banks & Green Thresholds.</p>
                 <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
                     <div class="dial-container" style="margin: 10px;">
                         <canvas id="dial-energy-std" width="110" height="110"></canvas>
-                        <small style="color: var(--text-muted)">Conventional Data Bank</small>
+                        <small style="color: var(--text-muted)">Conventional Bank</small>
                         <strong style="color: var(--accent-red)">412 kW/h</strong>
                     </div>
                     <div class="dial-container" style="margin: 10px;">
@@ -142,11 +142,13 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Financial Gains metric layer -->
             <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                    <h2>b. Cumulative Financial Gain</h2>
+                    <h2>b. Cumulative Financial Gain Matrix</h2>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Algorithmic filtration cost reductions saved globally.</p>
-                    <h3 style="font-size: 2.5rem; color: var(--accent-green); margin-top: 10px;">$48,921.40 <span style="font-size: 1rem; color: var(--text-muted)">USD</span></h3>
+                    <h3 id="admin-financial-val" style="font-size: 2.5rem; color: var(--accent-green); margin-top: 10px;">$0.00 <span style="font-size: 1rem; color: var(--text-muted)">USD</span></h3>
                 </div>
                 <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px;">
                     <button class="btn-action btn-blue" onclick="downloadAdministrativeReport()">e. Download Master Administrative Report (.CSV)</button>
@@ -154,22 +156,19 @@
             </div>
         </div>
 
-        <!-- System User and Hostile IP Matrix Data Lists -->
+        <!-- System Active User Database Numbers and Flagged Hostile IP lists -->
         <div class="grid-2">
             <div class="card">
                 <h2>c. Active Authorized User Numbers Matrix</h2>
                 <div style="max-height: 250px; overflow-y: auto;">
                     <table>
                         <thead>
-                            <tr><th>User ID Hash</th><th>Level</th><th>Status</th></tr>
+                            <tr><th>User Identification Hash</th><th>Authorization Layer</th><th>Node Status</th></tr>
                         </thead>
                         <tbody id="user-table-body"></tbody>
                     </table>
                 </div>
             </div>
             <div class="card">
-                <h2>d. Flagged Hostile IP Registry</h2>
+                <h2>d. Flagged Hostile IP Registry Network</h2>
                 <div style="max-height: 250px; overflow-y: auto;">
-                    <table>
-                        <thead>
-                            <tr><th>Target Hostile IP</th><th>Attempts</th><th>Action</th></tr>
