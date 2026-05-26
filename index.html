@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH V1 - System Master Interface</title>
+    <title>MARDUKH V1 - Queued Master Interface</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -33,6 +33,10 @@
         .dial-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         canvas { background: #000; border-radius: 50%; margin-bottom: 10px; }
         .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 15px; height: 200px; overflow-y: auto; border-radius: 6px; font-size: 0.85rem; line-height: 1.4; }
+        
+        /* Queue Monitor Visual Asset */
+        .queue-monitor { background: #21262d; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.75rem; color: var(--accent-blue); margin-bottom: 15px; display: inline-block; }
+        
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
         th { color: var(--text-muted); font-weight: 600; }
@@ -54,7 +58,7 @@
         </nav>
     </header>
 
-    <!-- PAGE 1: SYSTEM MASTER ACCESS GATEWAY -->
+    <!-- PAGE 1: Master Access Gate -->
     <div id="page-1" class="page" style="display: block;">
         <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
@@ -63,7 +67,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: INITIAL REPORT FOR GENERAL PEOPLE -->
+    <!-- PAGE 2: GENERAL PUBLIC REPORT -->
     <div id="page-2" class="page">
         <div class="card">
             <h2>Baseline Operational Metrics (General Public View)</h2>
@@ -85,7 +89,7 @@
         </div>
     </div>
 
-    <!-- PAGE 3: TELEMETRY PAGE -->
+    <!-- PAGE 3: LIVE TELEMETRY DISPLAY -->
     <div id="page-3" class="page">
         <div class="grid-2">
             <div class="card dial-container">
@@ -107,6 +111,9 @@
 
     <!-- PAGE 4: ADMINISTRATIVE MASTER MODULE -->
     <div id="page-4" class="page">
+        <div style="text-align: right; width: 100%;">
+            <div id="thread-queue-ui" class="queue-monitor">THREAD QUEUE STATUS: [0 TASKS PENDING]</div>
+        </div>
         <div class="grid-2">
             <div class="card">
                 <h2>a. Energy Use Comparison Data</h2>
@@ -131,7 +138,8 @@
                     <h3 id="admin-financial-val" style="font-size: 2.5rem; color: var(--accent-green); margin-top: 10px;">$0.00 <span style="font-size: 1rem; color: var(--text-muted)">USD</span></h3>
                 </div>
                 <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px;">
-                    <button class="btn-action btn-blue" onclick="downloadAdministrativeReport()">e. Download Master Administrative Report (.CSV)</button>
+                    <!-- Push action to asynchronous task queue wrapper -->
+                    <button class="btn-action btn-blue" onclick="pushToTaskQueue(downloadAdministrativeReport)">e. Download Master Administrative Report (.CSV)</button>
                 </div>
             </div>
         </div>
@@ -155,14 +163,3 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        let globalUserData = [
-            { id: "MDK-USR-0912", level: "Operator Tier 1", status: "Active" },
-            { id: "MDK-USR-4410", level: "Engineering Master", status: "Active" },
-            { id: "MDK-USR-8891", level: "Sovereign Root Core", status: "Active" }
-        ];
-        let globalIpData = [
-            { ip: "185.220.101.5", attempts: 412, threat: "Critical Ingress Breach" },
-            { ip: "45.146.164.12", attempts: 89, threat: "Filtration Overload Sync" },
