@@ -1,0 +1,18 @@
+{
+  "project_identity": "MARDUKH SYSTEM",
+  "version": "SA-AKHRAN-V1-",
+  "developer_attribution": "Seliim Ahmed (seliim.ahmed@gmail.com)",
+  "licensing_type": "Proprietary Commercial Source-License",
+  "engine_tuning": {
+    "default_polling_interval_ms": 1500,
+    "ui_colors": {
+      "accent": "#FFD700",
+      "alert": "#FF3333",
+      "stable": "#00FF66"
+    },
+    "filtration_metrics_map": {
+      "target_noise_rejection_percentage": 97.0,
+      "energy_efficiency_baseline_factor": "DataCenterRelationV1"
+    }
+  }
+}
