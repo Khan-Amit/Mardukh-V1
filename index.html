@@ -2,177 +2,174 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MARDUKH SYSTEM ENGINE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARDUKH V1 - Core Interface</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { height: 100%; font-family: monospace; background-color: #050505; color: #fff; overflow: hidden; }
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-green: #238636;
+            --accent-blue: #58a6ff;
+            --accent-red: #da3633;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --border: #30363d;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        header { width: 100%; max-width: 1200px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        h1 { color: #ffffff; font-size: 1.5rem; }
         
-        /* Master Viewport Layout Panel */
-        .page-view {
-            display: none;
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            flex-direction: column;
-            justify-content: space-between;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+        .nav-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; margin-left: 5px; }
+        .nav-btn:hover { border-color: var(--text-muted); }
+        .nav-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
-        /* Displays the active view tab instantly */
-        .active-view { display: flex !important; }
+        .page { display: none; width: 100%; max-width: 1200px; animation: fadeIn 0.3s ease-in-out; }
+        .page.active-page { display: block; }
 
-        /* Fixed Top Header Space Allocation */
-        .terminal-header {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 16px;
-            border-bottom: 2px solid #FFD700;
-            flex-shrink: 0;
-        }
-        .title { color: #FFD700; font-size: 20px; font-weight: bold; letter-spacing: 1px; }
-        .subtitle { color: #aaa; font-size: 11px; margin-top: 4px; }
-
-        /* Fixed Button Tray: Fits perfectly within mobile screens without overflow */
-        .action-tray {
-            padding: 16px 20px 32px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 70%, rgba(0,0,0,0));
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            flex-shrink: 0;
-            width: 100%;
-        }
-
-        /* High-Tactility Mobile Friendly Button Matrix */
-        .btn {
-            display: block;
-            width: 100%;
-            max-width: 450px;
-            padding: 16px;
-            font-size: 14px;
-            font-weight: bold;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-        .btn:active { transform: scale(0.98); }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; }
+        h2 { margin-bottom: 15px; font-size: 1.2rem; color: #fff; }
         
-        .btn-gold { background-color: #FFD700; color: #111; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
-        .btn-nav { background-color: #222; color: #FFF; border: 1px solid #FFD700; }
-        .btn-green { background-color: #00FF66; color: #000; }
-        .btn-red { background-color: #FF3333; color: #FFF; }
+        /* Grid Utilities */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
-        /* Dynamic Console Display Container for View 4 */
-        .console-box {
-            width: 100%;
-            max-width: 450px;
-            height: 90px;
-            background: #100000;
-            border: 1px solid #FF3333;
-            padding: 10px;
-            font-size: 11px;
-            color: #FF3333;
-            text-align: left;
-            overflow-y: auto;
-            border-radius: 4px;
-        }
+        /* Inputs & Buttons */
+        input { background: var(--bg-color); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 6px; width: 100%; margin-bottom: 15px; font-size: 1rem; }
+        .btn-action { width: 100%; padding: 10px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; color: #fff; font-size: 1rem; }
+        .btn-green { background: var(--accent-green); }
+        .btn-blue { background: var(--accent-blue); }
+        
+        /* Canvas & Telemetry Styling */
+        .dial-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        canvas { background: #000; border-radius: 50%; margin-bottom: 10px; }
+        .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 15px; height: 200px; overflow-y: auto; border-radius: 6px; font-size: 0.85rem; line-height: 1.4; }
 
-        .terminal-input {
-            width: 100%;
-            max-width: 450px;
-            padding: 14px;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #FFD700;
-            color: #00FF66;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 4px;
-            font-family: monospace;
-            border-radius: 4px;
-        }
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 600; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- 🏛️ VIEW 1: THE REPOSITORY INSTALLATION LANDING PAGE -->
-    <div id="view1" class="page-view active-view" style="background-image: url('landing_layout.png');">
-        <header class="terminal-header">
-            <div class="title">MARDUKH SYSTEM // VIEW 1</div>
-            <div class="subtitle">Core Implementation Deployment: SA-AKHRAN-V1-</div>
-        </header>
-        <div class="action-tray">
-            <a href="mardukh-core.apk" class="btn btn-gold">DOWNLOAD STANDALONE APP (.APK)</a>
-            <button class="btn btn-nav" onclick="navigateTo('view2')">PROCEED TO NEXT PAGE ➔</button>
+    <header>
+        <div>
+            <h1>MARDUKH V1</h1>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Sovereign Proprietary Source Framework</p>
+        </div>
+        <nav id="nav-bar" style="display: none;">
+            <button class="nav-btn" onclick="switchPage(2)">General Report</button>
+            <button class="nav-btn" onclick="switchPage(3)">Telemetry</button>
+            <button class="nav-btn" id="admin-nav" style="display:none;" onclick="switchPage(4)">Admin Control</button>
+            <button class="nav-btn" onclick="logout()" style="color: var(--accent-red);">Lock</button>
+        </nav>
+    </header>
+
+    <!-- PAGE 1: LANDING & LOGIC NUMBER -->
+    <div id="page-1" class="page active-page">
+        <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
+            <h2>System Access Authorization</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Enter logic configuration number to unlock baseline or administrator layers.</p>
+            <input type="password" id="logic-input" placeholder="Enter Logic Number" autocomplete="off">
+            <button class="btn-action btn-green" onclick="verifyLogicNumber()">Authenticate System</button>
+            <p id="login-error" style="color: var(--accent-red); font-size: 0.85rem; margin-top: 10px; display: none;">Invalid Logic Key Sequence</p>
         </div>
     </div>
 
-    <!-- 🔒 VIEW 2: IDENTITY SEQUENCE GATEWAY -->
-    <div id="view2" class="page-view" style="background-image: url('lockscreen_layout.png');">
-        <header class="terminal-header">
-            <div class="title">SECURE GATEWAY ACCESS // VIEW 2</div>
-            <div class="subtitle">Enter Administrative Mobile Lock Sequence</div>
-        </header>
-        <div class="action-tray">
-            <input type="tel" class="terminal-input" placeholder="ENTER PHONE NUMBER LOCK" value="+1 (555) 019-9700">
-            <button class="btn btn-gold" onclick="navigateTo('view3')">VERIFY IDENTITY & ENTER ➔</button>
-            <button class="btn btn-nav" onclick="navigateTo('view1')">⇠ GO BACK</button>
-        </div>
-    </div>
-
-    <!-- 🕹️ VIEW 3: ENGINE OPERATIONS CONTROL ROOM -->
-    <div id="view3" class="page-view" style="background-image: url('control_layout.png');">
-        <header class="terminal-header">
-            <div class="title">ENGINE CONTROL MATRIX // VIEW 3</div>
-            <div class="subtitle">Operational State Core Control Center</div>
-        </header>
-        <div class="action-tray">
-            <button class="btn btn-green" onclick="alert('SOCKET FILTRATION PIPELINE ENGAGED')">START FILTRATION PIPELINE</button>
-            <button class="btn btn-red" onclick="alert('INGRESS FILTER BENCHES HALTED')">STOP SOCKET CORES</button>
-            <button class="btn btn-gold" onclick="navigateTo('view4')">OPEN INSTRUMENTATION REPORT ➔</button>
-            <button class="btn btn-nav" onclick="navigateTo('view2')">⇠ GO BACK</button>
-        </div>
-    </div>
-
-    <!-- 📊 VIEW 4: DYNAMIC TELEMETRY INSTRUMENTATION REPORT -->
-    <div id="view4" class="page-view" style="background-image: url('telemetry_layout.png');">
-        <header class="terminal-header">
-            <div class="title">LIVE TELEMETRY DASHBOARD // VIEW 4</div>
-            <div class="subtitle">Real Data Filtering Velocity & Threat Assessment</div>
-        </header>
-        <div class="action-tray">
-            <button class="btn" style="font-family:monospace; background: rgba(0,0,0,0.9); color: #00FF66; border: 1px solid #00FF66; cursor: default;">
-                FLOW: 4.2 Gbps | ENERGY: 12mA | SAVED: $1,482.10
-            </button>
-            <div class="console-box">
-                [BLOCKED MOUTH] -> IP: 185.220.101.5<br>
-                [BLOCKED MOUTH] -> IP: 45.227.254.12<br>
-                [BLOCKED MOUTH] -> IP: 192.241.211.89
+    <!-- PAGE 2: INITIAL GENERAL REPORT -->
+    <div id="page-2" class="page">
+        <div class="card">
+            <h2>Baseline Operational Metrics (General Public Data)</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Public nodes and architectural integrity data layer.</p>
+            <div class="grid-3">
+                <div class="card" style="background: rgba(255,255,255,0.02)">
+                    <small style="color: var(--text-muted)">Global Ingress Status</small>
+                    <h3 style="font-size: 1.8rem; color: var(--accent-green); margin-top: 5px;">ONLINE</h3>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.02)">
+                    <small style="color: var(--text-muted)">Active Public Nodes</small>
+                    <h3 style="font-size: 1.8rem; color: var(--accent-blue); margin-top: 5px;">142 / 142</h3>
+                </div>
+                <div class="card" style="background: rgba(255,255,255,0.02)">
+                    <small style="color: var(--text-muted)">Filtration System Integrity</small>
+                    <h3 style="font-size: 1.8rem; color: #fff; margin-top: 5px;">99.98%</h3>
+                </div>
             </div>
-            <button class="btn btn-nav" onclick="navigateTo('view1')">↩ RETURN TO MAIN SITE START</button>
         </div>
     </div>
 
-    <!-- ⚙️ Zero Dependency Fixed Navigation Controller Script -->
-    <script>
-        function navigateTo(targetViewId) {
-            const views = document.querySelectorAll('.page-view');
-            views.forEach(view => {
-                view.classList.remove('active-view');
-            });
-            const target = document.getElementById(targetViewId);
-            if (target) {
-                target.classList.add('active-view');
-            }
-        }
-    </script>
+    <!-- PAGE 3: TELEMETRY PAGE -->
+    <div id="page-3" class="page">
+        <div class="grid-2">
+            <div class="card dial-container">
+                <h2>VoIP Ingress Telemetry</h2>
+                <canvas id="dial-voip" width="160" height="160"></canvas>
+                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.2rem;">0kbps</span>
+            </div>
+            <div class="card dial-container">
+                <h2>Filtration Loop Drop Rate</h2>
+                <canvas id="dial-filt" width="160" height="160"></canvas>
+                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.2rem;">0%</span>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Rolling Blocked IP Socket Logs (1500ms Stream)</h2>
+            <div id="log-stream" class="log-box">Initializing pipeline tracking...</div>
+        </div>
+    </div>
 
-</body>
-</html>
+    <!-- PAGE 4: ADMIN HTML PAGE (DIALS, REPORTS, SETTINGS) -->
+    <div id="page-4" class="page">
+        <!-- Energy and Financial Top Cards -->
+        <div class="grid-2">
+            <div class="card">
+                <h2>a. Energy Use Comparison</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Comparative consumption metrics against standard green thresholds.</p>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                    <div class="dial-container" style="margin: 10px;">
+                        <canvas id="dial-energy-std" width="110" height="110"></canvas>
+                        <small style="color: var(--text-muted)">Conventional Data Bank</small>
+                        <strong style="color: var(--accent-red)">412 kW/h</strong>
+                    </div>
+                    <div class="dial-container" style="margin: 10px;">
+                        <canvas id="dial-energy-green" width="110" height="110"></canvas>
+                        <small style="color: var(--text-muted)">Mardukh Green Energy</small>
+                        <strong style="color: var(--accent-green)">89 kW/h</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2>b. Cumulative Financial Gain</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Algorithmic filtration cost reductions saved globally.</p>
+                    <h3 style="font-size: 2.5rem; color: var(--accent-green); margin-top: 10px;">$48,921.40 <span style="font-size: 1rem; color: var(--text-muted)">USD</span></h3>
+                </div>
+                <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px;">
+                    <button class="btn-action btn-blue" onclick="downloadAdministrativeReport()">e. Download Master Administrative Report (.CSV)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System User and Hostile IP Matrix Data Lists -->
+        <div class="grid-2">
+            <div class="card">
+                <h2>c. Active Authorized User Numbers Matrix</h2>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr><th>User ID Hash</th><th>Level</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="user-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <h2>d. Flagged Hostile IP Registry</h2>
+                <div style="max-height: 250px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr><th>Target Hostile IP</th><th>Attempts</th><th>Action</th></tr>
