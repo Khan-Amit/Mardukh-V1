@@ -3,72 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH SYSTEM // SA-AKHRAN-V1-</title>
+    <title>MARDUKH SYSTEM ENGINE</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { height: 100%; font-family: monospace; background-color: #111; color: #fff; overflow: hidden; }
+        body, html { height: 100%; font-family: monospace; background-color: #050505; color: #fff; overflow: hidden; }
         
-        /* Targets the image file sitting directly in your root directory list */
-        .viewport-container {
+        /* Master Panel Viewport Container */
+        .page-view {
+            display: none; /* Hidden by default, unlatched via javascript buttons */
             position: relative;
             width: 100%;
             height: 100vh;
-            background: url('landing_layout.png') no-repeat center center;
-            background-size: cover;
-            display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
-        /* Glassmorphic Terminal Header Block */
+        /* Active Display State Override */
+        .active-view { display: flex !important; }
+
+        /* Technical Header Style Across All Views */
         .terminal-header {
             background: rgba(0, 0, 0, 0.85);
-            padding: 24px;
+            padding: 20px;
             border-bottom: 2px solid #FFD700;
         }
-        .title { color: #FFD700; font-size: 24px; font-weight: bold; letter-spacing: 2px; }
-        .subtitle { color: #aaa; font-size: 13px; margin-top: 5px; }
+        .title { color: #FFD700; font-size: 22px; font-weight: bold; letter-spacing: 2px; }
+        .subtitle { color: #aaa; font-size: 12px; margin-top: 4px; }
 
-        /* Floating Interactive Action Box */
+        /* Integrated Action Control Tray */
         .action-tray {
-            padding: 32px;
+            padding: 24px;
             background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
         }
-        .download-btn {
+
+        /* Tactical Button Classes */
+        .btn {
             display: inline-block;
             width: 100%;
-            max-width: 500px;
-            padding: 22px;
-            background-color: #FFD700;
-            color: #111;
-            text-decoration: none;
-            font-size: 16px;
+            max-width: 450px;
+            padding: 18px;
+            font-size: 15px;
             font-weight: bold;
             border: none;
             border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
-            transition: transform 0.15s;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
-        .download-btn:active { transform: scale(0.98); }
+        .btn:active { transform: scale(0.98); }
+        
+        .btn-gold { background-color: #FFD700; color: #111; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+        .btn-nav { background-color: #333; color: #FFF; border: 1px solid #FFD700; }
+        .btn-green { background-color: #00FF66; color: #000; }
+        .btn-red { background-color: #FF3333; color: #FFF; }
+
+        /* Custom Input Shell for Page 2 Pin Gate */
+        .terminal-input {
+            width: 100%;
+            max-width: 450px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #FFD700;
+            color: #00FF66;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
 
-    <div class="viewport-container">
-        <!-- System Data Overlays -->
+    <!-- 🏛️ VIEW 1: THE REPOSITORY INSTALLATION LANDING PAGE -->
+    <div id="view1" class="page-view active-view" style="background-image: url('landing_layout.png');">
         <header class="terminal-header">
-            <div class="title">MARDUKH SYSTEM</div>
+            <div class="title">MARDUKH SYSTEM // VIEW 1</div>
             <div class="subtitle">Core Implementation Deployment: SA-AKHRAN-V1-</div>
         </header>
-
-        <!-- Dynamic direct root folder bundle download hook -->
         <div class="action-tray">
-            <a href="mardukh-core.apk" class="download-btn">
-                DOWNLOAD STANDALONE APP (.APK)
-            </a>
+            <a href="mardukh-core.apk" class="btn btn-gold">DOWNLOAD STANDALONE APP (.APK)</a>
+            <button class="btn btn-nav" onclick="navigateTo('view2')">PROCEED TO NEXT PAGE ➔</button>
         </div>
     </div>
+
+    <!-- 🔒 VIEW 2: IDENTITY SEQUENCE GATEWAY -->
+    <div id="view2" class="page-view" style="background-image: url('lockscreen_layout.png');">
+        <header class="terminal-header">
+            <div class="title">SECURE GATEWAY ACCESS // VIEW 2</div>
+            <div class="subtitle">Enter Administrative Mobile Lock Sequence</div>
+        </header>
+        <div class="action-tray">
+            <input type="tel" class="terminal-input" placeholder="ENTER PHONE NUMBER LOCK" value="+1 (555) 019-9700">
+            <button class="btn btn-gold" onclick="navigateTo('view3')">VERIFY IDENTITY & ENTER ➔</button>
+            <button class="btn btn-nav" onclick="navigateTo('view1')">⇠ GO BACK</button>
+        </div>
+    </div>
+
+    <!-- 🕹️ VIEW 3: ENGINE OPERATIONS CONTROL ROOM -->
+    <div id="view3" class="page-view" style="background-image: url('control_layout.png');">
+        <header class="terminal-header">
+            <div class="title">ENGINE CONTROL MATRIX // VIEW 3</div>
+            <div class="subtitle">Operational State Core Control Center</div>
+        </header>
+        <div class="action-tray">
+            <button class="btn btn-green" onclick="alert('SOCKET FILTRATION PIPELINE ENGAGED')">START FILTRATION PIPELINE</button>
+            <button class="btn btn-red" onclick="alert('INGRESS FILTER BENCHES HALTED')">STOP SOCKET CORES</button>
+            <button class="btn btn-gold" onclick="navigateTo('view4')">OPEN INSTRUMENTATION REPORT ➔</button>
+            <button class="btn btn-nav" onclick="navigateTo('view2')">⇠ GO BACK</button>
+        </div>
+    </div>
+
+    <!-- 📊 VIEW 4: DYNAMIC TELEMETRY INSTRUMENTATION REPORT -->
+    <div id="view4" class="page-view" style="background-image: url('telemetry_layout.png');">
+        <header class="terminal-header">
+            <div class="title">LIVE TELEMETRY DASHBOARD // VIEW 4</div>
+            <div class="subtitle">Real Data Filtering Velocity & Threat Assessment</div>
+        </header>
+        <div class="action-tray">
+            <button class="btn btn-gold" style="font-family:monospace; background: rgba(0,0,0,0.9); color: #00FF66; border: 1px solid #00FF66;">
+                FLOW: 4.2 Gbps | ENERGY: 12mA | SAVED: $1,482.10
+            </button>
+            <button class="btn btn-red" style="font-family:monospace; font-size:11px; height:80px; overflow-y:scroll; text-align:left; background: #100000; border: 1px solid #FF3333;">
+                [BLOCKED MOUTH] -> IP: 185.220.101.5<br>
+                [BLOCKED MOUTH] -> IP: 45.227.254.12<br>
+                [BLOCKED MOUTH] -> IP: 192.241.211.89
+            </button>
+            <button class="btn btn-nav" onclick="navigateTo('view1')">↩ RETURN TO MAIN SITE START</button>
+        </div>
+    </div>
+
+    <!-- ⚙️ Zero Dependency Fast Navigation Controller Script -->
+    <script>
+        function navigateTo(targetViewId) {
+            // Harvest and collapse all visible viewport divs
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(view => {
+                view.classList.remove('active-view');
+            });
+            // Instantly unlatch the user's targeted viewport display properties
+            document.getElementById(targetViewId).add('active-view' || document.getElementById(targetViewId).classList.add('active-view'));
+        }
+    </script>
 
 </body>
 </html>
