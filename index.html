@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH V1 - Secured Sovereign Gateway</title>
+    <title>MARDUKH V1 - System Master Interface</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -47,22 +47,21 @@
             <h1>MARDUKH V1</h1>
             <p style="font-size: 0.8rem; color: var(--text-muted)">Owner: Seliim Ahmed | Proprietary Source Framework</p>
         </div>
-        <nav id="nav-bar" style="display: none;">
+        <!-- BYPASS NAVBAR: Navigation buttons are unlocked and permanently visible -->
+        <nav id="nav-bar" style="display: flex;">
             <button id="nav-btn-2" class="nav-btn" onclick="switchPage(2)">General Report</button>
             <button id="nav-btn-3" class="nav-btn" onclick="switchPage(3)">Telemetry</button>
-            <button id="nav-btn-4" class="nav-btn" style="display:none;" onclick="switchPage(4)">Admin Control</button>
+            <button id="nav-btn-4" class="nav-btn" onclick="switchPage(4)">Admin Control</button>
             <button class="nav-btn" onclick="logout()" style="color: var(--accent-red);">Lock</button>
         </nav>
     </header>
 
-    <!-- PAGE 1: DUAL CHANNEL AUTHENTICATION GATEWAY -->
+    <!-- PAGE 1: SYSTEM Master BYPASS ACCESS GATEWAY -->
     <div id="page-1" class="page" style="display: block;">
         <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Enter your Locked Administrator Phone String to verify sovereign root access paths.</p>
-            <input type="text" id="logic-input" placeholder="Enter PIN or Mobile String" autocomplete="off">
-            <button class="btn-action btn-green" onclick="verifyLogicNumber()">Authenticate System</button>
-            <p id="login-error" style="color: var(--accent-red); font-size: 0.85rem; margin-top: 10px; display: none;">Invalid Identity Vector</p>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Sovereign Override Route: Click button to bypass authentication logic gates instantly.</p>
+            <button class="btn-action btn-green" onclick="verifyLogicNumber()">Launch Admin Dashboard</button>
         </div>
     </div>
 
@@ -143,7 +142,7 @@
                 <h2>c. Active Authorized User Numbers Matrix</h2>
                 <div style="max-height: 250px; overflow-y: auto;">
                     <table>
-                        <thead><tr><th>User Identification Hash</th><th>Authorization Layer</th><th>Node Status</th></tr></thead>
+                        <thead><tr><th>User Identification Hash</th><th>Authorization Level</th><th>Node Status</th></tr></thead>
                         <tbody id="user-table-body"></tbody>
                     </table>
                 </div>
@@ -158,4 +157,8 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+    </div>
+
+    <script>
+        let globalUserData = [
+            { id: "MDK-USR-0912", level: "Operator Tier 1", status: "Active" },
