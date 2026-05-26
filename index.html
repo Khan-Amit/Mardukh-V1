@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARDUKH V1 - Queued Master Interface</title>
+    <title>MARDUKH V1</title>
     <style>
         :root {
             --bg-color: #0d1117;
@@ -15,32 +15,29 @@
             --text-muted: #8b949e;
             --border: #30363d;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        header { width: 100%; max-width: 1200px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-        h1 { color: #ffffff; font-size: 1.5rem; }
-        .nav-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; margin-left: 5px; }
-        .nav-btn:hover { border-color: var(--text-muted); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        header { width: 100%; max-width: 1200px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        h1 { color: #ffffff; font-size: 1.3rem; }
+        .nav-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 14px; cursor: pointer; border-radius: 6px; font-weight: bold; margin-left: 5px; font-size: 0.9rem; }
         .nav-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
-        .page { display: none; width: 100%; max-width: 1200px; animation: fadeIn 0.3s ease-in-out; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; }
-        h2 { margin-bottom: 15px; font-size: 1.2rem; color: #fff; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .btn-action { width: 100%; padding: 10px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; color: #fff; font-size: 1rem; }
+        .page { display: none; width: 100%; max-width: 1200px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 15px; margin-bottom: 15px; position: relative; }
+        h2 { margin-bottom: 12px; font-size: 1.1rem; color: #fff; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .btn-action { width: 100%; padding: 12px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; color: #fff; font-size: 1rem; display: block; text-align: center; }
         .btn-green { background: var(--accent-green); }
         .btn-blue { background: var(--accent-blue); }
         .dial-container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        canvas { background: #000; border-radius: 50%; margin-bottom: 10px; }
-        .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 15px; height: 200px; overflow-y: auto; border-radius: 6px; font-size: 0.85rem; line-height: 1.4; }
-        
-        /* Queue Monitor Visual Asset */
-        .queue-monitor { background: #21262d; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.75rem; color: var(--accent-blue); margin-bottom: 15px; display: inline-block; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
+        canvas { background: #000; border-radius: 50%; margin-bottom: 8px; }
+        .log-box { background: #000; font-family: monospace; color: #00ff00; padding: 12px; height: 180px; overflow-y: auto; border-radius: 6px; font-size: 0.8rem; line-height: 1.4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
         th { color: var(--text-muted); font-weight: 600; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Local Asset Layout Shell Mapping Classes */
+        .shell-asset { display: block; max-width: 100%; height: auto; margin: 10px auto; border-radius: 4px; border: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -48,7 +45,7 @@
     <header>
         <div>
             <h1>MARDUKH V1</h1>
-            <p style="font-size: 0.8rem; color: var(--text-muted)">Owner: Seliim Ahmed | Proprietary Source Framework</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted)">Owner: Seliim Ahmed | Sovereign Framework</p>
         </div>
         <nav id="nav-bar" style="display: flex;">
             <button id="nav-btn-2" class="nav-btn" onclick="switchPage(2)">General Report</button>
@@ -58,49 +55,53 @@
         </nav>
     </header>
 
-    <!-- PAGE 1: Master Access Gate -->
+    <!-- PAGE 1: ACCESS INTERACTION GATEWAY -->
     <div id="page-1" class="page" style="display: block;">
-        <div class="card" style="max-width: 400px; margin: 60px auto 0 auto; text-align: center;">
+        <div class="card" style="max-width: 400px; margin: 40px auto 0 auto; text-align: center;">
             <h2>System Access Authorization</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Sovereign Override Route: Click button to bypass authentication logic gates instantly.</p>
+            <img src="lockscreen_layout.png" alt="Lockscreen Layout Shell" class="shell-asset">
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 15px;">Sovereign Override Route: Click button to bypass authentication logic gates instantly.</p>
             <button class="btn-action btn-green" onclick="verifyLogicNumber()">Launch Admin Dashboard</button>
         </div>
     </div>
 
-    <!-- PAGE 2: GENERAL PUBLIC REPORT -->
+    <!-- PAGE 2: GENERAL PUBLIC DISPLAY SCREEN -->
     <div id="page-2" class="page">
         <div class="card">
             <h2>Baseline Operational Metrics (General Public View)</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">Standard public node integrity matrix accessed via user channel authentication.</p>
+            <img src="landing_layout.png" alt="Landing Layout Shell" class="shell-asset" style="max-height: 150px; object-fit: cover; width: 100%;">
             <div class="grid-3">
-                <div class="card" style="background: rgba(255,255,255,0.02)">
+                <div class="card" style="background: rgba(255,255,255,0.01); margin-bottom: 0;">
                     <small style="color: var(--text-muted)">Global Ingress Status</small>
-                    <h3 style="font-size: 1.8rem; color: var(--accent-green); margin-top: 5px;">ONLINE</h3>
+                    <h3 style="font-size: 1.5rem; color: var(--accent-green); margin-top: 5px;">ONLINE</h3>
                 </div>
-                <div class="card" style="background: rgba(255,255,255,0.02)">
+                <div class="card" style="background: rgba(255,255,255,0.01); margin-bottom: 0;">
                     <small style="color: var(--text-muted)">Active Core Nodes</small>
-                    <h3 style="font-size: 1.8rem; color: var(--accent-blue); margin-top: 5px;">142 Active</h3>
+                    <h3 style="font-size: 1.5rem; color: var(--accent-blue); margin-top: 5px;">142 Active</h3>
                 </div>
-                <div class="card" style="background: rgba(255,255,255,0.02)">
+                <div class="card" style="background: rgba(255,255,255,0.01); margin-bottom: 0;">
                     <small style="color: var(--text-muted)">Filtration Level Integrity</small>
-                    <h3 style="font-size: 1.8rem; color: #fff; margin-top: 5px;">99.98%</h3>
+                    <h3 style="font-size: 1.5rem; color: #fff; margin-top: 5px;">99.98%</h3>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 3: LIVE TELEMETRY DISPLAY -->
+    <!-- PAGE 3: TELEMETRY VIEWPORT CANVAS METER SCREEN -->
     <div id="page-3" class="page">
+        <div class="card" style="padding: 10px; margin-bottom: 15px; text-align: center;">
+            <img src="telemetry_layout.png" alt="Telemetry Layout Shell" class="shell-asset" style="max-height: 100px; object-fit: cover; width: 100%; margin: 0;">
+        </div>
         <div class="grid-2">
             <div class="card dial-container">
                 <h2>VoIP Ingress Stream</h2>
-                <canvas id="dial-voip" width="160" height="160"></canvas>
-                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.2rem;">0kbps</span>
+                <canvas id="dial-voip" width="140" height="140"></canvas>
+                <span id="dial-voip-val" style="font-weight: bold; font-size: 1.1rem;">0kbps</span>
             </div>
             <div class="card dial-container">
                 <h2>Filtration Loop Drop Rate</h2>
-                <canvas id="dial-filt" width="160" height="160"></canvas>
-                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.2rem;">0%</span>
+                <canvas id="dial-filt" width="140" height="140"></canvas>
+                <span id="dial-filt-val" style="font-weight: bold; font-size: 1.1rem;">0%</span>
             </div>
         </div>
         <div class="card">
@@ -109,57 +110,58 @@
         </div>
     </div>
 
-    <!-- PAGE 4: ADMINISTRATIVE MASTER MODULE -->
+    <!-- PAGE 4: ADMINISTRATIVE CONTROL MODULE -->
     <div id="page-4" class="page">
-        <div style="text-align: right; width: 100%;">
-            <div id="thread-queue-ui" class="queue-monitor">THREAD QUEUE STATUS: [0 TASKS PENDING]</div>
+        <div class="card" style="padding: 10px; margin-bottom: 15px; text-align: center;">
+            <img src="control_layout.png" alt="Control Layout Shell" class="shell-asset" style="max-height: 100px; object-fit: cover; width: 100%; margin: 0;">
         </div>
         <div class="grid-2">
             <div class="card">
                 <h2>a. Energy Use Comparison Data</h2>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Consumption vs. Standard Data Banks & Green Thresholds.</p>
                 <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
-                    <div class="dial-container" style="margin: 10px;">
-                        <canvas id="dial-energy-std" width="110" height="110"></canvas>
+                    <div class="dial-container" style="margin: 5px;">
+                        <canvas id="dial-energy-std" width="100" height="100"></canvas>
                         <small style="color: var(--text-muted)">Conventional Bank</small>
-                        <strong style="color: var(--accent-red)">412 kW/h</strong>
+                        <strong style="color: var(--accent-red); font-size: 0.9rem;">412 kW/h</strong>
                     </div>
-                    <div class="dial-container" style="margin: 10px;">
-                        <canvas id="dial-energy-green" width="110" height="110"></canvas>
-                        <small style="color: var(--text-muted)">Mardukh Green Energy</small>
-                        <strong style="color: var(--accent-green)">89 kW/h</strong>
+                    <div class="dial-container" style="margin: 5px;">
+                        <canvas id="dial-energy-green" width="100" height="100"></canvas>
+                        <small style="color: var(--text-muted)">Mardukh Green</small>
+                        <strong style="color: var(--accent-green); font-size: 0.9rem;">89 kW/h</strong>
                     </div>
                 </div>
             </div>
             <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
                     <h2>b. Cumulative Financial Gain Matrix</h2>
-                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Algorithmic filtration cost reductions saved globally.</p>
-                    <h3 id="admin-financial-val" style="font-size: 2.5rem; color: var(--accent-green); margin-top: 10px;">$0.00 <span style="font-size: 1rem; color: var(--text-muted)">USD</span></h3>
+                    <h3 id="admin-financial-val" style="font-size: 2rem; color: var(--accent-green); margin-top: 5px;">$0.00 <span style="font-size: 0.9rem; color: var(--text-muted)">USD</span></h3>
                 </div>
-                <div style="border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px;">
-                    <!-- Push action to asynchronous task queue wrapper -->
-                    <button class="btn-action btn-blue" onclick="pushToTaskQueue(downloadAdministrativeReport)">e. Download Master Administrative Report (.CSV)</button>
+                <div style="margin-top: 15px;">
+                    <button class="btn-action btn-blue" onclick="downloadAdministrativeReport()">e. Download Master Administrative Report (.CSV)</button>
                 </div>
             </div>
         </div>
         <div class="grid-2">
             <div class="card">
                 <h2>c. Active Authorized User Numbers Matrix</h2>
-                <div style="max-height: 250px; overflow-y: auto;">
+                <div style="max-height: 200px; overflow-y: auto;">
                     <table>
-                        <thead><tr><th>User Identification Hash</th><th>Authorization Level</th><th>Node Status</th></tr></thead>
+                        <thead><tr><th>User ID</th><th>Authorization Level</th><th>Node Status</th></tr></thead>
                         <tbody id="user-table-body"></tbody>
                     </table>
                 </div>
             </div>
             <div class="card">
                 <h2>d. Flagged Hostile IP Registry Network</h2>
-                <div style="max-height: 250px; overflow-y: auto;">
+                <div style="max-height: 200px; overflow-y: auto;">
                     <table>
-                        <thead><tr><th>Target Hostile IP Address</th><th>Attack Logs Count</th><th>Action Description</th></tr></thead>
+                        <thead><tr><th>Target Hostile IP Address</th><th>Attack Logs</th><th>Action Description</th></tr></thead>
                         <tbody id="ip-table-body"></tbody>
                     </table>
                 </div>
             </div>
         </div>
+    </div>
+
+    <script>
+        let globalUserData = [
